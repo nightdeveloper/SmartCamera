@@ -48,10 +48,11 @@ try:
     for i in range(h_servo.servo_min, h_servo.servo_max, 10):
         h_servo.move(i)
 
+    h_servo.center()
+
     for i in range(v_servo.servo_min, v_servo.servo_max, 10):
         v_servo.move(i)
 
-    h_servo.center()
     v_servo.center()
 
 except():

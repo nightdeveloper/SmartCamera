@@ -16,3 +16,7 @@ sudo pip install spidev
 sudo apt-get install python-imaging
 sudo apt-get install python-smbus
 
+sudo pip install spidev
+
+sudo pip install picamera
+sudo pip install "picamera[array]"

@@ -1,0 +1,16 @@
+Metadata-Version: 2.1
+Name: picamera
+Version: 0.0.1
+Summary: This package fakes real pi camera
+Home-page: https://github.com/
+Author: developer
+Author-email: developer@localhost
+License: UNKNOWN
+Description: # Example Package
+        
+        Fakes Raspberry Pi Camera
+Platform: UNKNOWN
+Classifier: Programming Language :: Python
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: OS Independent
+Description-Content-Type: text/markdown
