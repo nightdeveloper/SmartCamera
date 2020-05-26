@@ -20,3 +20,5 @@ sudo pip install spidev
 
 sudo pip install picamera
 sudo pip install "picamera[array]"
+
+sudo pip install opencv-python
