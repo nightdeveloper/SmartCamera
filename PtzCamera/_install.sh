@@ -8,14 +8,17 @@ sudo make install
 cd ..
 
 sudo apt-get install git
-sudo apt-get install wiringpi
-sudo apt-get install python-smbus
 
-sudo apt-get install python-pip
-sudo pip install RPi.GPIO
-sudo pip install spidev
+sudo apt-get install python3-pip
 
-sudo pip install picamera
-sudo pip install "picamera[array]"
+sudo pip3 install RPi.GPIO
+sudo pip3 install spidev
 
-sudo pip install opencv-python
+sudo pip3 install picamera
+sudo pip3 install "picamera[array]"
+
+sudo pip3 install Adafruit-GPIO
+sudo pip3 install adafruit_platformdetect
+sudo pip3 install Adafruit-PureIO
+
+sudo pip3 install opencv-python

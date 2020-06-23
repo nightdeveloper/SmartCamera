@@ -1,20 +1,20 @@
-#!/usr/bin/python
+#!/usr/bin/python3
 import time
-from TSL2581 import TSL2581
+from PtzCamera.TSL2581 import TSL2581
 
 try:
-    Light=TSL2581(0X39, debug=False)
+    Light = TSL2581(0X39, debug=False)
 
-    id=Light.Read_ID() & 0xf0
-    print('ID = %#x'%id)
+    light_id = Light.Read_ID() & 0xf0
+    print('ID = {0}'.format(light_id))
     Light.Init_TSL2581()
     
     while True:
-      lux  =  Light.calculate_Lux()
-      print"lux = ", lux
-      time.sleep(1)
+        lux = Light.calculate_Lux()
+        print("lux = ", lux)
+        time.sleep(1)
 
-except:
+except Exception as e:
     # GPIO.cleanup()
-    print "\nProgram end"
+    print("\nProgram end {0}".format(e))
     exit()
