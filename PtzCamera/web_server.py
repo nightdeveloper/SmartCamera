@@ -73,8 +73,9 @@ try:
     camera = picamera.PiCamera()
     camera_video_output_stream = StreamingOutput()
 
+
 except Exception as e:
-    logging.info("servo not available: {0}".format(e))
+    logging.info("camera not available: {0}".format(e))
     exc_type, exc_value, exc_traceback = sys.exc_info()
     traceback.print_tb(exc_traceback, file=sys.stdout)
 
@@ -90,7 +91,6 @@ try:
         camera.framerate = 24
 
         logging.info("start camera recording...")
-
         camera.start_recording(camera_video_output_stream, format='mjpeg', resize=(640, 480))
         try:
             logging.info("starting http server")
@@ -210,7 +210,7 @@ try:
                     traceback.print_tb(exc_traceback, file=sys.stdout)
                     return "can't start stream", 500
 
-            app.run(host=HTTP_HOST, port=HTTP_PORT, debug=HTTP_DEBUG)
+            app.run(host=HTTP_HOST, port=HTTP_PORT, debug=HTTP_DEBUG, use_reloader=False)
 
         finally:
             logging.info("stop camera recording")

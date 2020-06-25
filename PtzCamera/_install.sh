@@ -11,14 +11,12 @@ sudo apt-get install git
 
 sudo apt-get install python3-pip
 
-sudo pip3 install RPi.GPIO
-sudo pip3 install spidev
-
 sudo pip3 install picamera
 sudo pip3 install "picamera[array]"
+sudo pip3 install flask
 
+sudo pip3 install RPi.GPIO
+sudo pip3 install spidev
 sudo pip3 install Adafruit-GPIO
-sudo pip3 install adafruit_platformdetect
 sudo pip3 install Adafruit-PureIO
-
 sudo pip3 install opencv-python
