@@ -7,13 +7,18 @@ import PCA9685
 PWM_FREQ = 50.0  # from sg90/mgs90s docs
 MOVEMENT_DELAY = 0.3
 
+
 class Servo(object):
 
     movement_delay = 0
 
-    def __init__(self, addr, start_impulse_ms, end_impulse_ms):
-        self.pwm = PCA9685.PCA9685()
-        self.pwm.set_pwm_freq(PWM_FREQ)
+    def __init__(self, addr, start_impulse_ms, end_impulse_ms, emulation = False):
+
+        self.emulation = emulation
+
+        if self.emulation is False:
+            self.pwm = PCA9685.PCA9685()
+            self.pwm.set_pwm_freq(PWM_FREQ)
 
         self._addr = addr
         one_step = 1 / PWM_FREQ / float(PCA9685.PCA9685_BIT)
@@ -36,7 +41,8 @@ class Servo(object):
             logging.info("servo " + str(self.addr) + " out of range position: " + str(position))
         else:
             logging.info("servo " + str(self.addr) + " moving to " + str(position))
-            self.pwm.set_pwm(self.addr, 0, position)
+            if self.emulation is False:
+                self.pwm.set_pwm(self.addr, 0, position)
             time.sleep(0.05 + self.movement_delay)
 
     def center(self):

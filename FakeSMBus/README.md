@@ -1,3 +1,0 @@
-# Example Package
-
-Fakes smbus

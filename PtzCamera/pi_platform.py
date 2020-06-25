@@ -18,7 +18,7 @@
 # LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
-import platform
+import pi_platform
 import re
 
 # Platform identification constants.
@@ -39,7 +39,7 @@ def platform_detect():
     # Handle Beaglebone Black
     # TODO: Check the Beaglebone Black /proc/cpuinfo value instead of reading
     # the platform.
-    plat = platform.platform()
+    plat = pi_platform.pi_platform()
     if plat.lower().find('armv7l-with-debian') > -1:
         return BEAGLEBONE_BLACK
     elif plat.lower().find('armv7l-with-ubuntu') > -1:

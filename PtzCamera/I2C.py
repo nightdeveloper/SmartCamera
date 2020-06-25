@@ -23,7 +23,7 @@ import logging
 import os
 import subprocess
 
-import Platform
+import pi_platform
 
 
 def reverseByteOrder(data):
@@ -42,15 +42,15 @@ def get_default_bus():
     Raspberry Pi either bus 0 or 1 (based on the Pi revision) will be returned.
     For a Beaglebone Black the first user accessible bus, 1, will be returned.
     """
-    plat = Platform.platform_detect()
-    if plat == Platform.RASPBERRY_PI:
-        if Platform.pi_revision() == 1:
+    plat = pi_platform.platform_detect()
+    if plat == pi_platform.RASPBERRY_PI:
+        if pi_platform.pi_revision() == 1:
             # Revision 1 Pi uses I2C bus 0.
             return 0
         else:
             # Revision 2 Pi uses I2C bus 1.
             return 1
-    elif plat == Platform.BEAGLEBONE_BLACK:
+    elif plat == pi_platform.BEAGLEBONE_BLACK:
         # Beaglebone Black has multiple I2C buses, default to 1 (P9_19 and P9_20).
         return 1
     else:
@@ -72,8 +72,8 @@ def require_repeated_start():
     this function.  See this thread for more details:
       http://www.raspberrypi.org/forums/viewtopic.php?f=44&t=15840
     """
-    plat = Platform.platform_detect()
-    if plat == Platform.RASPBERRY_PI and os.path.exists('/sys/module/i2c_bcm2708/parameters/combined'):
+    plat = pi_platform.platform_detect()
+    if plat == pi_platform.RASPBERRY_PI and os.path.exists('/sys/module/i2c_bcm2708/parameters/combined'):
         # On the Raspberry Pi there is a bug where register reads don't send a
         # repeated start condition like the kernel smbus I2C driver functions
         # define.  As a workaround this bit in the BCM2708 driver sysfs tree can
