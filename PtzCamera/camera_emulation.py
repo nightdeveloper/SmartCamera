@@ -84,14 +84,13 @@ class PiCamera:
 
     def capture(
             self, output, format=None, use_video_port=False, resize=None,
-            splitter_port=0, bayer=False, name=None, **options):
+            splitter_port=0, bayer=False, **options):
 
         self.log("start caoture format = " + format +
                  ", resize = " + str(resize) +
-                 ", port = " + str(splitter_port) +
-                 ", name = " + name)
+                 ", port = " + str(splitter_port))
 
-        with open("templates/" + name, mode='rb') as file:
+        with open("templates/current.jpg", mode='rb') as file:
             output.write(file.read())
 
 

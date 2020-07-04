@@ -27,6 +27,7 @@ v_servo = None
 
 logging.info("creating memcache and locks...")
 ptz_lock = Lock()
+camera_lock = Lock()
 image_cache = MemCache()
 
 
@@ -119,9 +120,10 @@ try:
                     #                      + ", shutter " + str(camera.shutter_speed) \
                     #                      + ", awb gains " + ''.join(str(x) for x in camera.awb_gains)
 
-                    with camera_video_output_stream.condition:
-                        camera_video_output_stream.condition.wait()
-                        frame = camera_video_output_stream.frame
+                    with camera_lock:
+                        with camera_video_output_stream.condition:
+                            camera_video_output_stream.condition.wait()
+                            frame = camera_video_output_stream.frame
 
                     # logging.info("sending bytes len " + str(len(frame)))
 
@@ -145,16 +147,17 @@ try:
 
                 try:
                     if image_cache.has(name):
+                        logging.info("getting image from cache")
                         image_bytes = image_cache.get(name)
                     else:
                         if name == "current.jpg":
                             position_h = Position.CENTER
                             position_v = Position.CENTER
                         elif name == "left.jpg":
-                            position_h = Position.MIN
+                            position_h = Position.MAX
                             position_v = Position.CENTER
                         elif name == "right.jpg":
-                            position_h = Position.MAX
+                            position_h = Position.MIN
                             position_v = Position.CENTER
                         elif name == "up.jpg":
                             position_h = Position.CENTER
@@ -165,18 +168,23 @@ try:
                         else:
                             return 'invalid position!', 400
 
-                        with ptz_lock:
-                            logging.info("requested left image")
+                        if not isServoAvailable:
+                            with open("templates/current.jpg", mode='rb') as file:
+                                image_bytes = file.read()
+                        else:
+                            with camera_lock:
+                                with ptz_lock:
+                                    logging.info("requested left image")
 
-                            position_to_servo(h_servo, position_h)
-                            position_to_servo(v_servo, position_v)
-                            time.sleep(MOVEMENT_DELAY)
+                                    position_to_servo(h_servo, position_h)
+                                    position_to_servo(v_servo, position_v)
+                                    time.sleep(MOVEMENT_DELAY)
 
-                        image_stream = io.BytesIO()
-                        camera.capture(image_stream, format='jpeg', name=name)
-                        image_stream.seek(0)
-                        image_bytes = image_stream.read()
-                        image_cache.put(name, image_bytes)
+                                image_stream = io.BytesIO()
+                                camera.capture(image_stream, format='jpeg')
+                                image_stream.seek(0)
+                                image_bytes = image_stream.read()
+                                image_cache.put(name, image_bytes)
 
                     return send_file(
                         io.BytesIO(image_bytes),
