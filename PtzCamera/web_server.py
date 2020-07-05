@@ -168,8 +168,9 @@ try:
                         else:
                             return 'invalid position!', 400
 
-                        if not isServoAvailable:
-                            with open("templates/current.jpg", mode='rb') as file:
+                        if not isServoAvailable and name != "current.jpg":
+                            logging.info("ptz not available, return dummy image")
+                            with open("templates/ptz_na.jpg", mode='rb') as file:
                                 image_bytes = file.read()
                         else:
                             with camera_lock:

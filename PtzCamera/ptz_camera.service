@@ -1,0 +1,14 @@
+[Unit]
+Description=PtzCamera
+After=network.target
+
+[Service]
+ExecStart=/usr/bin/python3 -u web_server.py
+WorkingDirectory=/opt/SmartCamera/PtzCamera
+StandardOutput=inherit
+StandardError=inherit
+Restart=always
+User=pi
+
+[Install]
+WantedBy=multi-user.target
