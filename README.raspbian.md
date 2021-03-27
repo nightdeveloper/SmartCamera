@@ -33,6 +33,27 @@ sudo apt-get remove --purge rsyslog
 sudo logread
 ```
 
+## Add users and ssh keys (optional)
+
+[[https://nightdeveloper.github.io/tech-particles/ssh-keys]]
+
+## Enable I2C
+
+[[https://nightdeveloper.github.io/tech-particles/i2c]]
+
+## Deploying
+```
+cd /opt
+sudo git clone https://github.com/nightdeveloper/SmartCamera
+sudo chown -R pi:pi /opt/SmartCamera
+```
+
+## Enable camera
+``` 
+sudo raspi-config
+# interface options -> camera -> yes
+```
+
 ## Setting service
 ```
 sudo cp ./ptz_camera.service /etc/systemd/system/ptz_camera.service
@@ -46,6 +67,5 @@ sudo systemctl start ptz_camera
 sudo systemctl start ptz_camera
 sudo systemctl stop ptz_camera
 sudo systemctl status ptz_camera
+journalctl -u ptz_camera -b
 ```
-
-
