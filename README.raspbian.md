@@ -48,6 +48,12 @@ sudo git clone https://github.com/nightdeveloper/SmartCamera
 sudo chown -R pi:pi /opt/SmartCamera
 ```
 
+## Set timezone
+```
+sudo raspi-config
+# localization -> timezone -> ...
+```
+
 ## Enable camera
 ``` 
 sudo raspi-config
