@@ -12,4 +12,5 @@ cd ..
 
 sudo apt-get install git python3-pip
 
-sudo pip3 install picamera "picamera[array]" flask RPi.GPIO spidev Adafruit-GPIO Adafruit-PureIO opencv-python
+sudo pip3 install picamera "picamera[array]" RPi.GPIO spidev Adafruit-GPIO Adafruit-PureIO
+sudo pip3 install stomper websocket

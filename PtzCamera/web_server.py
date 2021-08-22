@@ -1,10 +1,16 @@
 #!/usr/bin/python3
 
-import io
+import os
 import sys
+
+file_dir = os.path.dirname(__file__)
+sys.path.append(file_dir)
+
+import io
 import logging
 import time
 import traceback
+
 from flask import Flask, render_template, send_file, Response
 from threading import Condition, Lock
 
